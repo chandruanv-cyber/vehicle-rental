@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::section})}">
+<head>
+    <title>Home</title>
+</head>
+<body>
+    <section>
+        <h1>Welcome to Vehicle Rental System</h1>
+        <p>Rent cars and bikes for your travel needs</p>
+        
+        <h2 class="mt-4">Available Vehicles</h2>
+        <div class="row">
+            <div th:each="vehicle : ${vehicles}" class="col-md-4 mb-4">
+                <div class="card">
+                    <img th:src="${vehicle.imagePath}" class="card-img-top" alt="Vehicle Image">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${vehicle.make + ' ' + vehicle.model}"></h5>
+                        <p class="card-text">
+                            <span th:text="${vehicle.type}"></span> | 
+                            <span th:text="${vehicle.year}"></span> | 
+                            $<span th:text="${vehicle.dailyRate}"></span>/day
+                        </p>
+                        <a th:href="@{/bookings/new/{id}(id=${vehicle.id})}" class="btn btn-primary">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

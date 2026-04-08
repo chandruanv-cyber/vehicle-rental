@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::section})}">
+<head>
+    <title>My Bookings</title>
+</head>
+<body>
+    <section>
+        <h1>Booking History</h1>
+        
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Booking ID</th>
+                    <th>Vehicle</th>
+                    <th>Dates</th>
+                    <th>Total Cost</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="booking : ${bookings}">
+                    <td th:text="${booking.id}"></td>
+                    <td th:text="${booking.vehicle.make + ' ' + booking.vehicle.model}"></td>
+                    <td th:text="${booking.startDate} + ' to ' + ${booking.endDate}"></td>
+                    <td th:text="'$' + ${booking.totalCost}"></td>
+                    <td th:text="${booking.status}"></td>
+                    <td>
+                        <a th:if="${booking.status.name() == 'PENDING'}" 
+                           th:href="@{/bookings/cancel/{id}(id=${booking.id})}" 
+                           class="btn btn-sm btn-danger">Cancel</a>
+                        <span th:if="${booking.status.name() != 'PENDING'}" class="text-muted">No actions</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</body>
+</html>

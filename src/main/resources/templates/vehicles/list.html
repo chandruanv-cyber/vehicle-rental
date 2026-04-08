@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout :: layout(~{::section})}">
+<head>
+    <title>Vehicles</title>
+</head>
+<body>
+    <section>
+        <h1>Vehicle List</h1>
+        <a th:href="@{/vehicles/add}" class="btn btn-success mb-3">Add New Vehicle</a>
+        
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Type</th>
+                    <th>Make/Model</th>
+                    <th>Year</th>
+                    <th>Daily Rate</th>
+                    <th>Available</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="vehicle : ${vehicles}">
+                    <td th:text="${vehicle.id}"></td>
+                    <td th:text="${vehicle.type}"></td>
+                    <td th:text="${vehicle.make + ' ' + vehicle.model}"></td>
+                    <td th:text="${vehicle.year}"></td>
+                    <td th:text="'$' + ${vehicle.dailyRate}"></td>
+                    <td th:text="${vehicle.available ? 'Yes' : 'No'}"></td>
+                    <td>
+                        <a th:href="@{/vehicles/edit/{id}(id=${vehicle.id})}" class="btn btn-sm btn-primary">Edit</a>
+                        <a th:href="@{/vehicles/delete/{id}(id=${vehicle.id})}" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</body>
+</html>

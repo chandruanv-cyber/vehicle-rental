@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Vehicle</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Edit Vehicle</h1>
+        <form th:action="@{/vehicles/edit/{id}(id=${vehicle.id})}" th:object="${vehicle}" method="post">
+            <!-- Same fields as add.html but with existing values -->
+            <div class="mb-3">
+                <label for="type" class="form-label">Vehicle Type</label>
+                <select class="form-select" id="type" th:field="*{type}">
+                    <option th:each="vt : ${T(com.vehicle_rental.model.Vehicle.VehicleType).values()}" 
+                            th:value="${vt}" 
+                            th:text="${vt}" 
+                            th:selected="${vt == vehicle.type}"></option>
+                </select>
+            </div>
+            
+            <div class="mb-3">
+                <label for="make" class="form-label">Make</label>
+                <input type="text" class="form-control" id="make" th:field="*{make}" required>
+            </div>
+            
+            <!-- Include all other fields exactly like in add.html -->
+            
+            <input type="hidden" th:field="*{id}">
+            
+            <button type="submit" class="btn btn-primary">Update Vehicle</button>
+            <a th:href="@{/vehicles}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>
